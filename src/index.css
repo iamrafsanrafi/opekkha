@@ -10,11 +10,33 @@
   margin: 0 auto;
 }
 
+.dark {
+  background: #000;
+  color: #fff;
+}
+
+.smooth {
+  transition: all 0.3s ease;
+}
+
 main {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.theme-icons-wrapper {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #64748b33;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .counter-box {
@@ -32,4 +54,12 @@ main {
 .value {
   font-size: 5rem;
   font-weight: 500;
+}
+
+/* ---- Theme Icons Wrapper Responsiveness ----  */
+@media screen and (min-width: 1025px) {
+  .theme-icons-wrapper {
+    top: 32px;
+    right: 32px;
+  }
 }

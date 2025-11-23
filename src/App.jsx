@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { HiMoon } from "react-icons/hi";
+import { HiOutlineSun } from "react-icons/hi2";
 
 const App = () => {
   // Constants
@@ -6,15 +8,17 @@ const App = () => {
   const endingDate = new Date("August 19, 2027");
 
   // States
-  const [itsBeen, setItsBeen] = useState(0);
-  const [remainingDays, setRemainingDays] = useState(0);
+  const [itsBeen, setItsBeen] = useState(null);
+  const [remainingDays, setRemainingDays] = useState(null);
   const [count, setCount] = useState(0);
+  const [theme, setTheme] = useState((localStorage.getItem("theme")) || "light");
+  const [isMounted, setIsMounted] = useState(false);
 
   const updateDays = () => {
-    // Current date
+    // Current Date
     const currentTime = new Date();
 
-    // Calculating days 'passed & remaining' in miliseconds
+    // Calculating days, 'passed & remaining' in miliseconds
     const daysPassedInMs = currentTime - startingDate;
     const remainingDaysInMs = endingDate - currentTime;
 
@@ -26,6 +30,7 @@ const App = () => {
     setRemainingDays(remaining < 0 ? 0 : remaining);
   }
 
+  // useEffect to start the day's count
   useEffect(() => {
     const interval = setInterval(updateDays, 1000);
 
@@ -36,7 +41,7 @@ const App = () => {
   useEffect(() => {
     let interval;
 
-    if (!itsBeen || !remainingDays) {
+    if (itsBeen === null || remainingDays === null) {
       interval = setInterval(() => {
         setCount(prev => prev + 1);
       }, 1);
@@ -48,15 +53,44 @@ const App = () => {
     }
   }, [itsBeen, remainingDays]);
 
+  // useEffect to control the theme toggling
+  useEffect(() => {
+    const body = document.querySelector("body");
+
+    if (theme === "dark") {
+      body.classList.add("dark");
+    }
+    else {
+      body.classList.remove("dark");
+    }
+
+    if(isMounted) {
+      body.classList.add("smooth");
+    }
+
+    localStorage.setItem("theme", theme);
+
+    if(!isMounted) setIsMounted(true);
+  }, [theme]);
+
   return (
-    <main className="container">
+    <main className={`container`}>
+      {/* ---- Light & Dark Theme Icons ---- */}
+      <div
+        onClick={() => setTheme(prev => prev === "light" ? "dark" : "light")}
+        className="theme-icons-wrapper">
+        {
+          theme === "light" ? <HiMoon className="moon-icon" size={32} /> : <HiOutlineSun className="sun-icon" size={32} />
+        }
+      </div>
+
       <div className="counter-box">
         <div className="box-1">
-          <p className="value">{itsBeen ? itsBeen : count}</p>
+          <p className="value">{itsBeen !== null ? itsBeen : count}</p>
         </div>
 
         <div className="box-2">
-          <p className="value">{remainingDays ? remainingDays : count}</p>
+          <p className="value">{remainingDays !== null ? remainingDays : count}</p>
         </div>
       </div>
     </main>
