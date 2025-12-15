@@ -26,7 +26,10 @@ body {
 }
 
 main {
-  height: 100vh;
+  /* fallback for old browsers */
+  min-height: 100vh;
+  /* modern mobile browsers */
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
