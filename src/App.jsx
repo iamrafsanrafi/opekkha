@@ -64,13 +64,13 @@ const App = () => {
       body.classList.remove("dark");
     }
 
-    if(isMounted) {
+    if (isMounted) {
       body.classList.add("smooth");
     }
 
     localStorage.setItem("theme", theme);
 
-    if(!isMounted) setIsMounted(true);
+    if (!isMounted) setIsMounted(true);
   }, [theme]);
 
   return (
@@ -84,6 +84,7 @@ const App = () => {
         }
       </div>
 
+      {/* ---- Main Section ---- */}
       <div className="counter-box">
         <div className="box-1">
           <p className="value">{itsBeen !== null ? itsBeen : count}</p>
@@ -92,6 +93,19 @@ const App = () => {
         <div className="box-2">
           <p className="value">{remainingDays !== null ? remainingDays : count}</p>
         </div>
+      </div>
+
+      {/* ---- Face Expression ---- */}
+      <div className="face">
+        <div className="eyes">
+          <div className="eye">
+            <div className="eyeball"></div>
+          </div>
+          <div className="eye">
+            <div className="eyeball"></div>
+          </div>
+        </div>
+        <div className="mouth"></div>
       </div>
     </main>
   )
