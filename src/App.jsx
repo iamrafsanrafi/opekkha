@@ -50,6 +50,9 @@ const App = () => {
     }
     else {
       clearInterval(interval);
+
+      // Loading animation
+      document.querySelector(".loading").style.animation = "loading 3s linear infinite";
     }
   }, [itsBeen, remainingDays]);
 
@@ -88,6 +91,11 @@ const App = () => {
       <div className="counter-box">
         <div className="box-1">
           <p className="value">{itsBeen !== null ? itsBeen : count}</p>
+        </div>
+
+        <div className="divider-wrapper">
+          <div className="divider"></div>
+          <div className="loading"></div>
         </div>
 
         <div className="box-2">
